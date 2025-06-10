@@ -1,7 +1,9 @@
+import 'package:recipa/core/entities/recipe_n_article_card_entity.dart';
+
 class HomePageEntity{
   final MainArticleEntity mainArticle;
-  final List<RandomRecipesEntity> randomRecipes;
-  final List<RandomArticlesEntity> randomArticles;
+  final List<RecipeCardEntity> randomRecipes;
+  final List<ArticleCardEntity> randomArticles;
   HomePageEntity({
     required this.mainArticle,
     required this.randomRecipes,
@@ -13,40 +15,14 @@ class MainArticleEntity{
   final String url;
   final String title;
   final String imageUrl;
+  final bool isArticle;
   final String description;
 
   MainArticleEntity({
     required this.url,
     required this.title,
     required this.imageUrl,
+    required this.isArticle,
     required this.description,
-  });
-}
-
-class RandomRecipesEntity{
-  final String url;
-  final String title;
-  final String category;
-  final String imageUrl;
-
-  RandomRecipesEntity({
-    required this.url,
-    required this.title,
-    required this.category,
-    required this.imageUrl,
-  });
-}
-
-class RandomArticlesEntity{
-  final String url;
-  final String title;
-  final String category;
-  final String imageUrl;
-
-  RandomArticlesEntity({
-    required this.url,
-    required this.title,
-    required this.category,
-    required this.imageUrl,
   });
 }

@@ -1,3 +1,4 @@
+/*
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipa/domain/entities/home_page_entity.dart';
 
@@ -11,4 +12,4 @@ class HomePageCubit extends Cubit<HomePageEntity>{
   Future<HomePageEntity> fetchHomePAgeDetails(){
     return FetchHomeItemsUseCase(homePageRepository: HomePageReproditoryImpl()).call();
   }
-}
+}*/

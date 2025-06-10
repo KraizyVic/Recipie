@@ -4,7 +4,7 @@ import 'package:recipa/domain/repositories/home_page_repository.dart';
 
 class HomePageReproditoryImpl implements HomePageRepository{
   @override
-  Future<HomePageEntity> fetchHomePage() {
+  Future<HomePageEntity> fetchHomePage() async{
     // TODO: implement fetchHomePage
     return HomePageOnlineDataSource().fetchHomePageDetails().then((value) => value.toEntity());
   }

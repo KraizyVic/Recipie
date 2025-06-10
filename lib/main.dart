@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipa/presentation/pages/home_page.dart';
 import 'package:recipa/presentation/pages/main_page.dart';
 
 void main() {
@@ -16,11 +15,11 @@ class MyApp extends StatelessWidget {
       title: 'Recipa',
       themeMode: ThemeMode.system,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue,brightness: Brightness.light),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue,brightness: Brightness.light,primary: Colors.blue),
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue,brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue,brightness: Brightness.dark,primary: Colors.blue),
         useMaterial3: true,
       ),
       home: MainPage(),
