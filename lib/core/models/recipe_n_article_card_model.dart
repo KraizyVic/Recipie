@@ -42,7 +42,7 @@ class RecipeCardModel{
       url: element.attributes['href'] ?? "null",
       title: element.querySelector("div.card__content > span.card__title > span.card__title-text")?.text.trim() ?? "null",
       category: element.querySelector("div.card__content")?.attributes['data-tag'] ?? "null",
-      isArticle: element.attributes['href']?.startsWith("https://www.allrecipes.com/recipe/") ?? false ? false : true,
+      isArticle: element.querySelector("div.comp.card__favorite.mm-myrecipes-favorite") == null ? true : false,
       imageUrl: element.querySelector("img")?.attributes['src'] ?? element.querySelector("img")?.attributes['data-src'] ?? "null",
     );
   }
@@ -88,7 +88,7 @@ class ArticleCardModel{
       url: element.attributes['href'] ?? "",
       title: element.querySelector("span.card__title-text")?.text.trim() ?? "",
       category: element.querySelector("div.card__content ")?.attributes['data-tag'] ?? "",
-      isArticle: element.attributes['href']?.startsWith("https://www.allrecipes.com/recipe/") ?? false ? true  : false,
+      isArticle: element.querySelector("div.comp.card__favorite.mm-myrecipes-favorite") == null ? true : false,
       imageUrl: element.querySelector("img")?.attributes['src'] ?? element.querySelector("img")?.attributes['data-src'] ?? "null",
     );
   }

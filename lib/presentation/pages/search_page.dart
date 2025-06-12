@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:recipa/domain/entities/search_page_entity.dart';
 import 'package:recipa/domain/use_cases/search_page_use_cases.dart';
 import 'package:recipa/presentation/pages/recipe_page.dart';
-import 'package:recipa/presentation/widgets/custom_text_field.dart';
-
 import '../../data/data_source/online/search_page_online_local_data_source.dart';
 import '../../data/repositories/search_page_repository_impl.dart';
+import '../widgets/custom_widgets.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -45,7 +44,11 @@ class _SearchPageState extends State<SearchPage> {
               setState(() {
                 searchFuture = SearchUseCase(searchPageRepository: SearchPageRepositoryImpl(onlineLocalDataSource: SearchPageOnlineLocalDataSource())).fetchSearchResults(value);
               });
-            }
+            },
+            borderRadius: 50,
+            onTap: (){},
+            onFocus: (){},
+            onFocusChange: (hasFocus){}
           ),
           Expanded(
             child: FutureBuilder(

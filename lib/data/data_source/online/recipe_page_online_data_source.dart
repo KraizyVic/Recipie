@@ -18,7 +18,12 @@ class RecipePageOnlineDataSource{
       List<NutritionFactsModel> nutritionFactsList = [];
       List<RecipeCardModel> similarRecipesList = [];
 
-      Element? header = recipePageElement!.querySelector("div.loc.article-post-header");
+      List<Element> imageElement = recipePageElement!.getElementsByTagName("img");
+      for(Element element in imageElement){
+        images.add(element.attributes["src"] ?? element.attributes["data-src"] ?? "");
+      }
+
+      Element? header = recipePageElement.querySelector("div.loc.article-post-header");
       RecipePageHeaderModel recipePageHeader = RecipePageHeaderModel(
         recipeTitle: header?.querySelector("h1.harticle-heading.text-headline-400")?.text.trim() ?? "null",
         recipeDescription: header?.querySelector("p.article-subheading.text-utility-300")?.text.trim() ?? "null",
@@ -38,41 +43,50 @@ class RecipePageOnlineDataSource{
       }
 
       List<Element> recipeIngredientsGroups = recipePageElement.getElementsByClassName("mm-recipes-structured-ingredients__list");
-      for(Element recipeIngredientsGroup in recipeIngredientsGroups){
-        List<Element> recipeIngredients = recipeIngredientsGroup.getElementsByClassName("mm-recipes-structured-ingredients__list-item");
+      for (int i = 0; i < recipeIngredientsGroups.length; i++) {
+        final recipeIngredientsGroup = recipeIngredientsGroups[i];
+        final recipeIngredients = recipeIngredientsGroup.getElementsByClassName("mm-recipes-structured-ingredients__list-item");
+
         List<RecipeIngredientsModel> recipeIngredientsList = [];
 
-        for(Element ingredient in recipeIngredients){
-          List<Element> spans = ingredient.getElementsByTagName("span");
+        for (final ingredient in recipeIngredients) {
+          final spans = ingredient.getElementsByTagName("span");
           String ingredientQuantity = "";
           String ingredientUnit = "";
           String ingredientName = "";
 
-          if(spans.length == 3){
+          if (spans.length == 3) {
             ingredientQuantity = spans[0].text.trim();
             ingredientUnit = spans[1].text.trim();
             ingredientName = spans[2].text.trim();
-          }else if(spans.length == 2){
+          } else if (spans.length == 2) {
             ingredientUnit = spans[0].text.trim();
             ingredientName = spans[1].text.trim();
-          }else if(spans.length == 1){
+          } else if (spans.length == 1) {
             ingredientName = spans[0].text.trim();
           }
+
           recipeIngredientsList.add(
-              RecipeIngredientsModel(
-                ingredientQuantity: ingredientQuantity,
-                ingredientUnit: ingredientUnit,
-                ingredientName: ingredientName,
-              )
+            RecipeIngredientsModel(
+              ingredientQuantity: ingredientQuantity,
+              ingredientUnit: ingredientUnit,
+              ingredientName: ingredientName,
+            ),
           );
         }
+
+        // get group name by index
+        final groupHeadings = recipePageElement.getElementsByClassName("mm-recipes-structured-ingredients__list-heading");
+        final groupName = (i < groupHeadings.length) ? groupHeadings[i].text.trim() : null;
+
         recipeIngredientsGroupList.add(
           RecipeIngredientGroupModel(
-            groupName: recipePageElement.querySelector("p.mm-recipes-structured-ingredients__list-heading")?.text.trim() ?? "null",
+            groupName: groupName,//recipePageElement.getElementsByClassName("mm-recipes-structured-ingredients__list-heading")[i].text.trim() ?? "null",
             ingredients: recipeIngredientsList,
-          )
+          ),
         );
       }
+
 
       List<Element> recipeInstructions = recipePageElement.getElementsByClassName("comp mntl-sc-block mntl-sc-block-startgroup mntl-sc-block-group--LI");
       for(Element instruction in recipeInstructions) {

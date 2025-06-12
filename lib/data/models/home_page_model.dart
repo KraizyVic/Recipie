@@ -1,6 +1,7 @@
 import 'package:html/dom.dart';
 import 'package:recipa/domain/entities/home_page_entity.dart';
 
+import '../../core/models/main_article_model.dart';
 import '../../core/models/recipe_n_article_card_model.dart';
 
 class HomePageModel{
@@ -32,55 +33,8 @@ class HomePageModel{
   static HomePageModel fromHtml(Document document){
     return HomePageModel(
       mainArticle: HomeArticleModel.fromHtml(document.querySelector("a.comp.mntl-document-card--featured.mntl-document-card.mntl-card.card.card--no-image")!),
-      randomRecipes: document.getElementsByClassName("comp list-sc-item mntl-block mntl-sc-list-item").map((e) => RecipeCardModel.fromHtml(e)).toList(),
+      randomRecipes: document.getElementsByClassName("comp mntl-card-list-items mntl-universal-card mntl-document-card mntl-card card--image-top card card--no-image").map((recipe) => RecipeCardModel.fromHtml(recipe)).toList(),
       randomArticles: document.getElementsByClassName("comp mntl-vertical-list mntl-block").take(1).expand((section) => section.getElementsByClassName("comp mntl-card-list-items mntl-universal-card mntl-document-card mntl-card card--image-left card card--no-image").map((recipeArticle) => ArticleCardModel.fromHtml(recipeArticle))).toList()
-    );
-  }
-
-}
-
-class HomeArticleModel{
-  final String url;
-  final String title;
-  final String imageUrl;
-  final bool isArticle;
-  final String description;
-
-  HomeArticleModel({
-    required this.url,
-    required this.title,
-    required this.imageUrl,
-    required this.isArticle,
-    required this.description,
-  });
-
-  MainArticleEntity toEntity(){
-    return MainArticleEntity(
-      url:url,
-      title: title,
-      imageUrl: imageUrl,
-      isArticle: isArticle,
-      description: description,
-    );
-  }
-
-  static HomeArticleModel fromEntity(MainArticleEntity entity){
-    return HomeArticleModel(
-      url: entity.url,
-      title: entity.title,
-      imageUrl: entity.imageUrl,
-      isArticle: entity.isArticle,
-      description: entity.description
-    );
-  }
-
-  static HomeArticleModel fromHtml(Element element){
-    return HomeArticleModel(
-      url: element.attributes['href'] ?? "null",
-      title: element.querySelector("div.card__content > span.card__title > span.card__title-text")?.text.trim() ?? "null",
-      imageUrl: element.querySelector("div.primary-image__media > div.img-placeholder > img")?.attributes['src'] ?? "null",
-      isArticle: element.querySelector("a.comp.mntl-document-card--featured.mntl-document-card.mntl-card.card.card--no-image")?.attributes['href']?.startsWith("https://www.allrecipes.com/recipe/") ?? false ? false : true,
-      description: element.querySelector("div.card__content > div.card__description")?.attributes['data-card-description'] ?? "null",
     );
   }
 }

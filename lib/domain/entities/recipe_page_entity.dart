@@ -48,7 +48,7 @@ class RecipeOverallDetailsEntity{
 }
 
 class RecipeIngredientGroupEntity{
-  final String groupName;
+  final String? groupName;
   final List<RecipeIngredientsEntity> ingredients;
   RecipeIngredientGroupEntity({
     required this.groupName,

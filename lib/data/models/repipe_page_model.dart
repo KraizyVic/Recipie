@@ -107,7 +107,7 @@ class RecipeOverallDetailsModel{
 }
 
 class RecipeIngredientGroupModel {
-  final String groupName;
+  final String? groupName;
   final List<RecipeIngredientsModel> ingredients;
 
   RecipeIngredientGroupModel({
