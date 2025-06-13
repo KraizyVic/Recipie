@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
                     indicatorColor: Theme.of(context).colorScheme.primary,
                     selectedLabelTextStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
                     labelType: NavigationRailLabelType.none,
-                    elevation: 0,
+
                     destinations: [
                       NavigationRailDestination(icon: Icon(Icons.home),label: Text("Home")),
                       NavigationRailDestination(icon: Icon(Icons.abc),label: Text("A-Z")),

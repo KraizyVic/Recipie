@@ -50,7 +50,7 @@ class ArticlePageModel{
     return ArticlePageModel(
       url: document.querySelector("a.mntl-attribution__item-name")?.attributes['content'] ?? "",
       title: document.querySelector("h1.article-heading.text-headline-400")?.text.trim() ?? "",
-      imageUrl: document.querySelector("div.primary-image__media > img")?.attributes['src'] ?? "",
+      imageUrl: document.querySelector("div.primary-image__media div.img-placeholder > img")?.attributes['src'] ?? document.querySelector("div.primary-image__media div.img-placeholder > img")?.attributes['srcset'] ?? "",
       author: document.querySelector("a.mntl-attribution__item-name")?.text.trim() ?? "",
       updatedOn: document.querySelector("div.mntl-attribution__item-date")?.text.trim() ?? "",
       recipes: document.getElementsByClassName("comp list-sc-item mntl-block mntl-sc-list-item").map((e) => ArticleRecipeModel.fromHtml(e)).toList(),
