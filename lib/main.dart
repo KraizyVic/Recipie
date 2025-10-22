@@ -4,13 +4,13 @@ import 'package:recipie/core/dependency_injector.dart';
 import 'package:recipie/presentation/pages/main_page.dart';
 
 /// Initializes and runs the application.
-void main() {
+void main() async{
   // Ensures that the Flutter binding has been initialized.
   WidgetsFlutterBinding.ensureInitialized();
   // Sets the application to run in edge-to-edge mode.
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   // Sets up the service locator for dependency injection.
-  setupLocator();
+  await setupLocator();
   // Runs the application.
   runApp(const MyApp());
 }

@@ -1,4 +1,3 @@
-import 'package:recipie/data/models/grocery_model.dart';
 
 class GroceryItemEntity{
   final int id;

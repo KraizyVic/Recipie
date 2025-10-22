@@ -19,14 +19,16 @@ class LookAndFeelEntity {
   final int id;
   final int themeMode;
   final bool keepScreenOnOnRecipePage;
-  final int color;
+  final int seedColor;
+  final int primaryColor;
   final String language;
 
   LookAndFeelEntity({
     required this.id,
     required this.themeMode,
     required this.keepScreenOnOnRecipePage,
-    required this.color,
+    required this.seedColor,
+    required this.primaryColor,
     required this.language
   });
 }
