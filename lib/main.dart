@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipie/core/dependency_injector.dart';
+import 'package:recipie/domain/entities/settings_page_entities.dart';
 import 'package:recipie/presentation/pages/main_page.dart';
+import 'package:recipie/presentation/state_management/settings_page_cubit.dart';
 
 /// Initializes and runs the application.
 void main() async{
@@ -23,31 +26,41 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Recipie',
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF00674B),
-          brightness: Brightness.light,
-          primary: Colors.blue,
-          tertiary: Colors.black,
-          onTertiary: Colors.white,
-        ),
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context)=>LookAndFeelCubit()),
+      ],
+      child: BlocBuilder<LookAndFeelCubit,LookAndFeelEntity>(
+        builder: (context,state) {
+          return MaterialApp(
+            title: 'Recipie',
+            debugShowCheckedModeBanner: false,
+            themeMode: state.themeMode == 0 ? ThemeMode.system : state.themeMode == 1 ? ThemeMode.light : ThemeMode.dark ,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Color(state.seedColor),
+                brightness: Brightness.light,
+                primary: Color(state.primaryColor),
+                tertiary: Colors.black,
+                onTertiary: Colors.white,
+              ),
+              useMaterial3: true,
+            ),
+            darkTheme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Color(state.seedColor),
+                brightness: Brightness.dark,
+                primary: Color(state.primaryColor),
+                surface: state.isAmoledBackground ? Colors.black : null,
+                tertiary: Colors.white,
+                onTertiary: Colors.black,
+              ),
+              useMaterial3: true,
+            ),
+            home: const MainPage(),
+          );
+        }
       ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF00674B),
-          brightness: Brightness.dark,
-          primary: Colors.lightGreenAccent,
-          tertiary: Colors.white,
-          onTertiary: Colors.black,
-        ),
-        useMaterial3: true,
-      ),
-      home: const MainPage(),
     );
   }
 }

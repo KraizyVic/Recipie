@@ -18,6 +18,7 @@ class ProfileEntity{
 class LookAndFeelEntity {
   final int id;
   final int themeMode;
+  final bool isAmoledBackground;
   final bool keepScreenOnOnRecipePage;
   final int seedColor;
   final int primaryColor;
@@ -26,6 +27,7 @@ class LookAndFeelEntity {
   LookAndFeelEntity({
     required this.id,
     required this.themeMode,
+    required this.isAmoledBackground,
     required this.keepScreenOnOnRecipePage,
     required this.seedColor,
     required this.primaryColor,

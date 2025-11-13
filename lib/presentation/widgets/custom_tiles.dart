@@ -10,32 +10,16 @@ Widget articleTile({
   double? width,
   double? height,
 }){
-  return Container(
-    width: width ?? 250,
-    height: height,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      //color: Theme.of(context).colorScheme.primary.withAlpha(50),
-      gradient: LinearGradient(
-        colors: [
-          Theme.of(context).colorScheme.primary.withAlpha(80),
-          Theme.of(context).colorScheme.primary.withAlpha(50),
-          Theme.of(context).colorScheme.primary.withAlpha(100),
-        ],
-        begin: AlignmentGeometry.bottomLeft,
-        end: AlignmentGeometry.topRight,
-      ),
-      border: Border.all(
-        color: Theme.of(context).colorScheme.tertiary.withAlpha(50),
-        width: 1
-      )
-    ),
+  return Card(
+    margin: EdgeInsets.zero,
+    elevation: 0,
+    color: Theme.of(context).colorScheme.tertiary.withAlpha(25),
     child: MaterialButton(
       onPressed: onTap,
       hoverColor: Theme.of(context).colorScheme.tertiary.withAlpha(50),
       splashColor: Theme.of(context).colorScheme.tertiary.withAlpha(50),
       padding: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           Padding(
@@ -43,7 +27,7 @@ Widget articleTile({
             child: Container(
               width: 100,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(image: NetworkImage(article.imageUrl,),fit: BoxFit.cover)
               ),
             ),
@@ -56,7 +40,7 @@ Widget articleTile({
                   child: Center(
                     child: Text(
                       article.title,
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 20,

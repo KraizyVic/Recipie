@@ -19,6 +19,40 @@ class CookBook extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.7,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10
+                ),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: recipeTiles(
+                        context: context,
+                        recipe: snapshot.data![index],
+                        onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>RecipePage(recipe: snapshot.data![index], articleRecipeEntity: null, recipeUrl: '',)))
+                    ),
+                  );
+                }
+            );
+          }else{
+            return Center(child: CircularProgressIndicator());
+          }
+        }
+      )
+    );
+  }
+}
+
+
+
+/*body: StreamBuilder(
+        stream: sl<GetCookBookRecipes>().getCookBookRecipes(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 0.7,
@@ -41,7 +75,4 @@ class CookBook extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
         }
-      )
-    );
-  }
-}
+      )*/

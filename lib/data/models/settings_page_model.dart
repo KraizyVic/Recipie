@@ -60,6 +60,7 @@ class ProfileModel {
 class LookAndFeelModel {
   Id id = 0;
   final int themeMode;
+  final bool isAmoledBackground;
   final bool keepScreenOnOnRecipePage;
   final int seedColor;
   final int primaryColor;
@@ -67,6 +68,7 @@ class LookAndFeelModel {
   LookAndFeelModel({
     required this.id,
     required this.themeMode,
+    required this.isAmoledBackground,
     required this.keepScreenOnOnRecipePage,
     required this.seedColor,
     required this.primaryColor,
@@ -77,6 +79,7 @@ class LookAndFeelModel {
     return LookAndFeelEntity(
       id: id,
       themeMode: themeMode,
+      isAmoledBackground: isAmoledBackground,
       keepScreenOnOnRecipePage: keepScreenOnOnRecipePage,
       seedColor: seedColor,
       primaryColor: primaryColor,
@@ -90,6 +93,7 @@ class LookAndFeelModel {
     return LookAndFeelModel(
       id: lookAndFeelEntity.id,
       themeMode: lookAndFeelEntity.themeMode,
+      isAmoledBackground: lookAndFeelEntity.isAmoledBackground,
       keepScreenOnOnRecipePage: lookAndFeelEntity.keepScreenOnOnRecipePage,
       seedColor: lookAndFeelEntity.seedColor,
       primaryColor: lookAndFeelEntity.primaryColor,
@@ -101,6 +105,7 @@ class LookAndFeelModel {
   LookAndFeelModel copyWith({
     Id? id,
     int? themeMode,
+    bool? isAmoledBackground,
     bool? keepScreenOnOnRecipePage,
     int? seedColor,
     int? primaryColor,
@@ -109,8 +114,8 @@ class LookAndFeelModel {
     return LookAndFeelModel(
       id: id ?? this.id,
       themeMode: themeMode ?? this.themeMode,
-      keepScreenOnOnRecipePage:
-      keepScreenOnOnRecipePage ?? this.keepScreenOnOnRecipePage,
+      isAmoledBackground: isAmoledBackground ?? this.isAmoledBackground,
+      keepScreenOnOnRecipePage: keepScreenOnOnRecipePage ?? this.keepScreenOnOnRecipePage,
       seedColor: seedColor ?? this.seedColor,
       primaryColor: primaryColor ?? this.primaryColor,
       language: language ?? this.language,

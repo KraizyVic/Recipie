@@ -38,39 +38,31 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(widget.borderRadius ?? 15),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: widget.isGlassMorphic ? 10 : 0,sigmaY: widget.isGlassMorphic ? 10 : 0),
-        child: Container(
-          width: widget.width ?? double.maxFinite,
-          height: widget.height ?? 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 15),
-            color: widget.isGlassMorphic ? Theme.of(context).colorScheme.tertiary.withAlpha(50) : Colors.transparent,
+    return TextField(
+      controller: widget.textEditingController,
+      onTap: widget.onTap,
+      obscureText: widget.isPassword ?? false,
+      keyboardType: widget.textInputType,
+      decoration: InputDecoration(
+        hintText: widget.hintText ?? "Search",
+        filled: true,
+        prefixIcon: Icon(Icons.search),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.tertiary.withAlpha(100),
+            width: 1,
           ),
-          child: TextField(
-            controller: widget.textEditingController,
-            //focusNode: widget.focusNode,
-            onTap: widget.onTap,
-            obscureText: widget.isPassword ?? false,
-            keyboardType: widget.textInputType,
-            decoration: InputDecoration(
-              hintText: widget.hintText ?? "Search",
-              filled: widget.isFilled,
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(widget.borderRadius ?? 15),
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.tertiary.withAlpha(100),
-                  width: 1
-                )
-              ),
-            ),
-            onSubmitted: widget.onSubmit,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 1.5,
           ),
         ),
       ),
+      onSubmitted: widget.onSubmit,
     );
   }
 }

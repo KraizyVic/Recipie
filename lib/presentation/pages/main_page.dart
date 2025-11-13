@@ -48,7 +48,7 @@ class _MainPageState extends State<MainPage> {
                       NavigationRailDestination(icon: Icon(Icons.home),label: Text("Home")),
                       NavigationRailDestination(icon: Icon(Icons.abc),label: Text("A-Z")),
                       NavigationRailDestination(icon: Icon(Icons.shopping_bag),label: Text("Saved")),
-                      NavigationRailDestination(icon: Icon(Icons.person_2_outlined),label: Text("Account")),
+                      NavigationRailDestination(icon: Icon(Icons.settings),label: Text("Settings")),
                     ]
                   ),
                   Expanded(child: pages[currentPageIndex])
@@ -71,10 +71,10 @@ class _MainPageState extends State<MainPage> {
                 showUnselectedLabels: false,
                 elevation: 0,
                 items: [
-                  BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
-                  BottomNavigationBarItem(icon: Icon(Icons.shopping_bag),label: "Groceries"),
-                  BottomNavigationBarItem(icon: Icon(Icons.bookmark_outline),label: "Saved"),
-                  BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined),label: "Account"),
+                  BottomNavigationBarItem(icon: Icon(currentPageIndex != 0 ? Icons.home_outlined : Icons.home ),label: "Home"),
+                  BottomNavigationBarItem(icon: Icon(currentPageIndex != 1 ? Icons.shopping_bag_outlined : Icons.shopping_bag),label: "Groceries"),
+                  BottomNavigationBarItem(icon: Icon(currentPageIndex != 2 ? Icons.bookmark_border : Icons.bookmark),label: "Saved"),
+                  BottomNavigationBarItem(icon: Icon(currentPageIndex != 3 ? Icons.settings_outlined : Icons.settings),label: "Settings"),
                 ],
               ),
             );

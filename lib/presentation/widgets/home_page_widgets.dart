@@ -103,34 +103,25 @@ class _HomeGreetingAndSearchState extends State<HomeGreetingAndSearch> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: widget.search,
+                      child: SizedBox(
+                        height: 55,
+                        child: widget.search,
+                      )
                     ),
                     SizedBox(width: 10,),
-                    ClipRRect(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10,sigmaY: 10),
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 1000),
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: /*widget.isSearchFocused ? Colors.red.withAlpha(150): */Theme.of(context).colorScheme.tertiary.withAlpha(50),
-                            //color: Theme.of(context).colorScheme.primary,
-                            border: Border.all(
-                                color: Theme.of(context).colorScheme.tertiary.withAlpha(100)
-                            )
-                          ),
-                          child: MaterialButton(
-                            padding: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            onPressed: widget.onCancel,
-                            child: Icon(Icons.abc,color: Theme.of(context).colorScheme.tertiary.withAlpha(200),),
-                            //child: Icon(widget.isSearchFocused ? Icons.close : Icons.abc,color: widget.isSearchFocused ? Colors.red.withAlpha(200) :Theme.of(context).colorScheme.tertiary.withAlpha(200),)//color: Theme.of(context).colorScheme.onTertiary,),
-                          )
-                        ),
+                    SizedBox(
+                      height: 55,
+                      width: 55,
+                      child: MaterialButton(
+                        padding: .symmetric(horizontal: 0,vertical: 15),
+                        color: Theme.of(context).colorScheme.tertiary.withAlpha(50),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),side: BorderSide(color: Theme.of(context).colorScheme.tertiary.withAlpha(100),width: 1)),
+                        onPressed: widget.onCancel,
+                        child: Icon(Icons.abc,color: Theme.of(context).colorScheme.tertiary.withAlpha(200),),
+                        //child: Icon(widget.isSearchFocused ? Icons.close : Icons.abc,color: widget.isSearchFocused ? Colors.red.withAlpha(200) :Theme.of(context).colorScheme.tertiary.withAlpha(200),)//color: Theme.of(context).colorScheme.onTertiary,),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

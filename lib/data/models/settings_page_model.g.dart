@@ -880,28 +880,33 @@ const LookAndFeelModelSchema = CollectionSchema(
   name: r'LookAndFeelModel',
   id: 953351926124050733,
   properties: {
-    r'keepScreenOnOnRecipePage': PropertySchema(
+    r'isAmoledBackground': PropertySchema(
       id: 0,
+      name: r'isAmoledBackground',
+      type: IsarType.bool,
+    ),
+    r'keepScreenOnOnRecipePage': PropertySchema(
+      id: 1,
       name: r'keepScreenOnOnRecipePage',
       type: IsarType.bool,
     ),
     r'language': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'language',
       type: IsarType.string,
     ),
     r'primaryColor': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'primaryColor',
       type: IsarType.long,
     ),
     r'seedColor': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'seedColor',
       type: IsarType.long,
     ),
     r'themeMode': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'themeMode',
       type: IsarType.long,
     ),
@@ -938,11 +943,12 @@ void _lookAndFeelModelSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeBool(offsets[0], object.keepScreenOnOnRecipePage);
-  writer.writeString(offsets[1], object.language);
-  writer.writeLong(offsets[2], object.primaryColor);
-  writer.writeLong(offsets[3], object.seedColor);
-  writer.writeLong(offsets[4], object.themeMode);
+  writer.writeBool(offsets[0], object.isAmoledBackground);
+  writer.writeBool(offsets[1], object.keepScreenOnOnRecipePage);
+  writer.writeString(offsets[2], object.language);
+  writer.writeLong(offsets[3], object.primaryColor);
+  writer.writeLong(offsets[4], object.seedColor);
+  writer.writeLong(offsets[5], object.themeMode);
 }
 
 LookAndFeelModel _lookAndFeelModelDeserialize(
@@ -953,11 +959,12 @@ LookAndFeelModel _lookAndFeelModelDeserialize(
 ) {
   final object = LookAndFeelModel(
     id: id,
-    keepScreenOnOnRecipePage: reader.readBool(offsets[0]),
-    language: reader.readString(offsets[1]),
-    primaryColor: reader.readLong(offsets[2]),
-    seedColor: reader.readLong(offsets[3]),
-    themeMode: reader.readLong(offsets[4]),
+    isAmoledBackground: reader.readBool(offsets[0]),
+    keepScreenOnOnRecipePage: reader.readBool(offsets[1]),
+    language: reader.readString(offsets[2]),
+    primaryColor: reader.readLong(offsets[3]),
+    seedColor: reader.readLong(offsets[4]),
+    themeMode: reader.readLong(offsets[5]),
   );
   return object;
 }
@@ -972,12 +979,14 @@ P _lookAndFeelModelDeserializeProp<P>(
     case 0:
       return (reader.readBool(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 2:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 3:
       return (reader.readLong(offset)) as P;
     case 4:
+      return (reader.readLong(offset)) as P;
+    case 5:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1132,6 +1141,15 @@ extension LookAndFeelModelQueryFilter
           upper: upper,
           includeUpper: includeUpper,
         ),
+      );
+    });
+  }
+
+  QueryBuilder<LookAndFeelModel, LookAndFeelModel, QAfterFilterCondition>
+  isAmoledBackgroundEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'isAmoledBackground', value: value),
       );
     });
   }
@@ -1464,6 +1482,20 @@ extension LookAndFeelModelQueryLinks
 extension LookAndFeelModelQuerySortBy
     on QueryBuilder<LookAndFeelModel, LookAndFeelModel, QSortBy> {
   QueryBuilder<LookAndFeelModel, LookAndFeelModel, QAfterSortBy>
+  sortByIsAmoledBackground() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isAmoledBackground', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LookAndFeelModel, LookAndFeelModel, QAfterSortBy>
+  sortByIsAmoledBackgroundDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isAmoledBackground', Sort.desc);
+    });
+  }
+
+  QueryBuilder<LookAndFeelModel, LookAndFeelModel, QAfterSortBy>
   sortByKeepScreenOnOnRecipePage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'keepScreenOnOnRecipePage', Sort.asc);
@@ -1550,6 +1582,20 @@ extension LookAndFeelModelQuerySortThenBy
   }
 
   QueryBuilder<LookAndFeelModel, LookAndFeelModel, QAfterSortBy>
+  thenByIsAmoledBackground() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isAmoledBackground', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LookAndFeelModel, LookAndFeelModel, QAfterSortBy>
+  thenByIsAmoledBackgroundDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isAmoledBackground', Sort.desc);
+    });
+  }
+
+  QueryBuilder<LookAndFeelModel, LookAndFeelModel, QAfterSortBy>
   thenByKeepScreenOnOnRecipePage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'keepScreenOnOnRecipePage', Sort.asc);
@@ -1623,6 +1669,13 @@ extension LookAndFeelModelQuerySortThenBy
 extension LookAndFeelModelQueryWhereDistinct
     on QueryBuilder<LookAndFeelModel, LookAndFeelModel, QDistinct> {
   QueryBuilder<LookAndFeelModel, LookAndFeelModel, QDistinct>
+  distinctByIsAmoledBackground() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isAmoledBackground');
+    });
+  }
+
+  QueryBuilder<LookAndFeelModel, LookAndFeelModel, QDistinct>
   distinctByKeepScreenOnOnRecipePage() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'keepScreenOnOnRecipePage');
@@ -1663,6 +1716,13 @@ extension LookAndFeelModelQueryProperty
   QueryBuilder<LookAndFeelModel, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<LookAndFeelModel, bool, QQueryOperations>
+  isAmoledBackgroundProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isAmoledBackground');
     });
   }
 

@@ -91,7 +91,7 @@ class _GroceriesPageState extends State<GroceriesPage> {
                           children: groceries.where((grocery)=>!grocery.isChecked).map((grocery)=>CheckboxListTile(
                               value: grocery.isChecked,
                               title: Text(grocery.name),
-                              onChanged: (value)=>sl<ToggleGrocery>().toggleGrocery(grocery.id!),
+                              onChanged: (value)=>sl<ToggleGrocery>().toggleGrocery(grocery.id),
                             )
                           ).toList(),
                         ),

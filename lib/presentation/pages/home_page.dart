@@ -69,41 +69,36 @@ class _HomePageState extends State<HomePage> {
             exit(0);
           }
         },
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            if(constraints.maxWidth > 600){
-              return Container();
-            }
-            return CustomScrollView(
-              physics: BouncingScrollPhysics(),
-              slivers: [
-                SliverAppBar(
-                  expandedHeight: 250,
-                  floating: false,
-                  pinned: true,
-                  snap: false,
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  scrolledUnderElevation: 0,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: HomeGreetingAndSearch(
-                      search: CustomTextField(
-                        textEditingController: _textEditingController,
-                        hintText: "What's on your mind?",
-                        borderRadius: 15,
-                        isGlassMorphic: true,
-                        isFilled: false,
-                        onTap: (){
-                          isSearchFocused = true;
-                          pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
-                        },
-                        onSubmit: (value){
-                          setState(() {
-                            _searchResults = SearchUseCase(searchPageRepository: SearchPageRepositoryImpl(onlineLocalDataSource: SearchPageOnlineLocalDataSource())).fetchSearchResults(value);
-                          });
-                        },
-                      ),
-                      onCancel: (){
-                        /*if(isSearchFocused || _textEditingController.text.isNotEmpty){
+        child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 250,
+              floating: false,
+              pinned: true,
+              snap: false,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              scrolledUnderElevation: 0,
+              flexibleSpace: FlexibleSpaceBar(
+                background: HomeGreetingAndSearch(
+                  search: CustomTextField(
+                    textEditingController: _textEditingController,
+                    hintText: "What's on your mind?",
+                    borderRadius: 15,
+                    isGlassMorphic: true,
+                    isFilled: false,
+                    onTap: (){
+                      isSearchFocused = true;
+                      pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    },
+                    onSubmit: (value){
+                      setState(() {
+                        _searchResults = SearchUseCase(searchPageRepository: SearchPageRepositoryImpl(onlineLocalDataSource: SearchPageOnlineLocalDataSource())).fetchSearchResults(value);
+                      });
+                    },
+                  ),
+                  onCancel: (){
+                    /*if(isSearchFocused || _textEditingController.text.isNotEmpty){
                           _textEditingController.clear();
                           FocusScope.of(context).unfocus();
                           isSearchFocused = false;
@@ -114,128 +109,126 @@ class _HomePageState extends State<HomePage> {
                         }else{
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>AToZPage()));
                         }*/
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AToZPage()));
-                      },
-                      isSearchFocused: isSearchFocused,
-                    ),
-                  )
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AToZPage()));
+                  },
+                  isSearchFocused: isSearchFocused,
                 ),
-                SliverFillRemaining(
-                  child: SizedBox(
-                    //height: constraints.maxHeight,
-                    child: PageView(
-                      controller: pageController,
-                      physics: NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        FutureBuilder(
-                            future: _homePageItemsFuture,
-                            builder: (context, snapshot) {
-                              if(snapshot.connectionState == ConnectionState.waiting){
-                                return Center(child: CircularProgressIndicator(),);
-                              }else if(snapshot.hasError){
-                                return Center(child: Text(snapshot.error.toString()),);
-                              }
-                              final data = snapshot.data!;
-                              return SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                      child: Row(
-                                        children: [
-                                          Text("Articles",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,)),
-                                          Spacer(),
-                                          Row(
-                                            children: data.randomArticles.where((articleElement)=>articleElement.isArticle).map((article)=>Padding(
-                                              padding: const EdgeInsets.only(left: 3),
-                                              child: AnimatedContainer(
-                                                  duration: Duration(milliseconds: 300),
-                                                  height: 10,
-                                                  width: 10,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: data.randomArticles.where((articleElement)=>articleElement.isArticle).toList().indexOf(article) == articleIndex ? Theme.of(context).colorScheme.primary.withAlpha(200) : Theme.of(context).colorScheme.primary.withAlpha(50),
-                                                  )
-                                              ),
-                                            )).toList(),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        height: 150,
-                                        child: PageView(
-                                          scrollDirection: Axis.horizontal,
-                                          onPageChanged: (value){
-                                            setState(() {
-                                              articleIndex = value;
-                                            });
-                                          },
-                                          children: data.randomArticles.where((article)=>article.isArticle).map((article)=>Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                                            child: articleTile(
-                                                context: context,
-                                                article: article,
-                                                onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=> RecipeArticlePage(articleRecipeEntity: article,recipeUrl: article.url,)))
-                                            ),
-                                          )).toList(),
-                                        )
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                                      child: Text("Recipes",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,)),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsGeometry.symmetric(horizontal: 5),
-                                      child: GridView(
-                                          padding: EdgeInsets.zero,
-                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: constraints.maxWidth > 550 ? 3 : 2,childAspectRatio: 0.7,crossAxisSpacing: 10,mainAxisSpacing: 10),
-                                          physics: NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          children: data.randomRecipes.map((recipe)=>recipeTiles(
-                                              context: context,
-                                              recipe: recipe,
-                                              isGlassMorphic: false,
-                                              width: double.maxFinite,
-                                              onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>RecipePage(recipe: recipe, recipeUrl: recipe.url, articleRecipeEntity: null,)))
-                                          )).toList()
-                                      ),
-                                    )
-                                  ],
+              )
+            ),
+            SliverFillRemaining(
+              child: SizedBox(
+                //height: constraints.maxHeight,
+                child: PageView(
+                  controller: pageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    FutureBuilder(
+                        future: _homePageItemsFuture,
+                        builder: (context, snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Center(child: CircularProgressIndicator(),);
+                          }else if(snapshot.hasError){
+                            return Center(child: Text(snapshot.error.toString()),);
+                          }
+                          final data = snapshot.data!;
+                          return SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Row(
+                                    children: [
+                                      Text("Articles",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,)),
+                                      Spacer(),
+                                      Row(
+                                        children: data.randomArticles.where((articleElement)=>articleElement.isArticle).map((article)=>Padding(
+                                          padding: const EdgeInsets.only(left: 3),
+                                          child: AnimatedContainer(
+                                              duration: Duration(milliseconds: 300),
+                                              height: 10,
+                                              width: 10,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: data.randomArticles.where((articleElement)=>articleElement.isArticle).toList().indexOf(article) == articleIndex ? Theme.of(context).colorScheme.primary.withAlpha(200) : Theme.of(context).colorScheme.primary.withAlpha(50),
+                                              )
+                                          ),
+                                        )).toList(),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              );
-                            }
-                        ),
-                        FutureBuilder(
-                            future: _searchResults,
-                            builder: (context,snapshot){
-                              if(snapshot.connectionState == ConnectionState.waiting){
-                                return Center(child:CircularProgressIndicator());
-                              }else if(snapshot.hasError){
-                                return Center(child: Text(snapshot.error.toString()));
-                              }else{
-                                return snapshot.data!.recipeResults.isEmpty ? Center(child: Text("No results found"),) : GridView.builder(
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 0.8),
-                                    padding: EdgeInsets.zero,
-                                    itemCount: snapshot.data!.recipeResults.length,
-                                    itemBuilder: (context,index){
-                                      return searchTiles(context: context,search: snapshot.data!.recipeResults[index]);
-                                    }
-                                );
-                              }
-                            }
-                        )
-                      ]
+                                SizedBox(
+                                    height: 150,
+                                    child: PageView(
+                                      scrollDirection: Axis.horizontal,
+                                      onPageChanged: (value){
+                                        setState(() {
+                                          articleIndex = value;
+                                        });
+                                      },
+                                      children: data.randomArticles.where((article)=>article.isArticle).map((article)=>Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                        child: articleTile(
+                                            context: context,
+                                            article: article,
+                                            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=> RecipeArticlePage(articleRecipeEntity: article,recipeUrl: article.url,)))
+                                        ),
+                                      )).toList(),
+                                    )
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                  child: Text("Recipes",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,)),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsGeometry.symmetric(horizontal: 5),
+                                  child: GridView(
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 0.7,crossAxisSpacing: 10,mainAxisSpacing: 10),
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      children: data.randomRecipes.map((recipe)=>recipeTiles(
+                                          context: context,
+                                          recipe: recipe,
+                                          isGlassMorphic: false,
+                                          width: double.maxFinite,
+                                          onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>RecipePage(recipe: recipe, recipeUrl: recipe.url, articleRecipeEntity: null,)))
+                                      )).toList()
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }
                     ),
-                  ),
+                    FutureBuilder(
+                        future: _searchResults,
+                        builder: (context,snapshot){
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Center(child:CircularProgressIndicator());
+                          }else if(snapshot.hasError){
+                            return Center(child: Text(snapshot.error.toString()));
+                          }else{
+                            return snapshot.data!.recipeResults.isEmpty ? Center(child: Text("No results found"),) : GridView.builder(
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 0.8),
+                                padding: EdgeInsets.zero,
+                                itemCount: snapshot.data!.recipeResults.length,
+                                itemBuilder: (context,index){
+                                  return searchTiles(context: context,search: snapshot.data!.recipeResults[index]);
+                                }
+                            );
+                          }
+                        }
+                    )
+                  ]
                 ),
-              ],
-            );
-          }
+              ),
+            ),
+          ],
+          )
         ),
-      ),
     );
   }
 }

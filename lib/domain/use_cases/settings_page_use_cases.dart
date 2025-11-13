@@ -58,7 +58,7 @@ class ReadLookAndFeel{
   final SettingsPageRepository settingsPageRepository;
   ReadLookAndFeel({required this.settingsPageRepository});
 
-  Future<LookAndFeelEntity> readLookAndFeel(int id)async{
+  Future<LookAndFeelEntity?> readLookAndFeel(int id)async{
     return await settingsPageRepository.readLookAndFeelSettings(id);
   }
 }

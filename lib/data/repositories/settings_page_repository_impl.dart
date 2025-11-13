@@ -1,3 +1,4 @@
+import 'package:recipie/core/constants.dart';
 import 'package:recipie/data/data_source/local/settings_page_data_source.dart';
 import 'package:recipie/data/models/settings_page_model.dart';
 import 'package:recipie/domain/entities/settings_page_entities.dart';
@@ -35,7 +36,7 @@ class SettingsPageRepositoryImpl extends SettingsPageRepository {
   }
   @override
   Future<LookAndFeelEntity> readLookAndFeelSettings(int id) async{
-    return await settingsPageDataSource.readLookAndFeelSettings(id).then((value) => value!.toLookAndFeelEntity());
+    return await settingsPageDataSource.readLookAndFeelSettings(id).then((value) => value?.toLookAndFeelEntity() ?? defaultLookAndFeel);
   }
   @override
   Future<void> resetLookAndFeelSettings() async{

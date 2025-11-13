@@ -1,4 +1,5 @@
 import 'package:isar_community/isar.dart';
+import 'package:recipie/core/constants.dart';
 import 'package:recipie/data/models/settings_page_model.dart';
 
 class SettingsPageDataSource {
@@ -44,16 +45,7 @@ class SettingsPageDataSource {
   }
   Future<void> resetLookAndFeelSettings() async {
     await isar.writeTxn(() async {
-      await isar.lookAndFeelModels.put(
-        LookAndFeelModel(
-          id: 0,
-          themeMode: 0,
-          keepScreenOnOnRecipePage: false,
-          seedColor: 0xFF00674B,
-          primaryColor: 0xFF00674B,
-          language: "English"
-        )
-      );
+      await isar.lookAndFeelModels.put(LookAndFeelModel.toLookAndFeelModel(defaultLookAndFeel));
     });
   }
 
