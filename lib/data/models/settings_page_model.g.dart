@@ -1773,7 +1773,7 @@ const SearchHistoryModelSchema = CollectionSchema(
     r'createdAt': PropertySchema(
       id: 0,
       name: r'createdAt',
-      type: IsarType.long,
+      type: IsarType.dateTime,
     ),
     r'query': PropertySchema(id: 1, name: r'query', type: IsarType.string),
   },
@@ -1783,7 +1783,21 @@ const SearchHistoryModelSchema = CollectionSchema(
   deserialize: _searchHistoryModelDeserialize,
   deserializeProp: _searchHistoryModelDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'query': IndexSchema(
+      id: -3238105102146786367,
+      name: r'query',
+      unique: true,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'query',
+          type: IndexType.hash,
+          caseSensitive: true,
+        ),
+      ],
+    ),
+  },
   links: {},
   embeddedSchemas: {},
 
@@ -1809,7 +1823,7 @@ void _searchHistoryModelSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.createdAt);
+  writer.writeDateTime(offsets[0], object.createdAt);
   writer.writeString(offsets[1], object.query);
 }
 
@@ -1820,7 +1834,7 @@ SearchHistoryModel _searchHistoryModelDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = SearchHistoryModel(
-    createdAt: reader.readLong(offsets[0]),
+    createdAt: reader.readDateTime(offsets[0]),
     id: id,
     query: reader.readString(offsets[1]),
   );
@@ -1835,7 +1849,7 @@ P _searchHistoryModelDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 1:
       return (reader.readString(offset)) as P;
     default:
@@ -1859,6 +1873,63 @@ void _searchHistoryModelAttach(
   SearchHistoryModel object,
 ) {
   object.id = id;
+}
+
+extension SearchHistoryModelByIndex on IsarCollection<SearchHistoryModel> {
+  Future<SearchHistoryModel?> getByQuery(String query) {
+    return getByIndex(r'query', [query]);
+  }
+
+  SearchHistoryModel? getByQuerySync(String query) {
+    return getByIndexSync(r'query', [query]);
+  }
+
+  Future<bool> deleteByQuery(String query) {
+    return deleteByIndex(r'query', [query]);
+  }
+
+  bool deleteByQuerySync(String query) {
+    return deleteByIndexSync(r'query', [query]);
+  }
+
+  Future<List<SearchHistoryModel?>> getAllByQuery(List<String> queryValues) {
+    final values = queryValues.map((e) => [e]).toList();
+    return getAllByIndex(r'query', values);
+  }
+
+  List<SearchHistoryModel?> getAllByQuerySync(List<String> queryValues) {
+    final values = queryValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'query', values);
+  }
+
+  Future<int> deleteAllByQuery(List<String> queryValues) {
+    final values = queryValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'query', values);
+  }
+
+  int deleteAllByQuerySync(List<String> queryValues) {
+    final values = queryValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'query', values);
+  }
+
+  Future<Id> putByQuery(SearchHistoryModel object) {
+    return putByIndex(r'query', object);
+  }
+
+  Id putByQuerySync(SearchHistoryModel object, {bool saveLinks = true}) {
+    return putByIndexSync(r'query', object, saveLinks: saveLinks);
+  }
+
+  Future<List<Id>> putAllByQuery(List<SearchHistoryModel> objects) {
+    return putAllByIndex(r'query', objects);
+  }
+
+  List<Id> putAllByQuerySync(
+    List<SearchHistoryModel> objects, {
+    bool saveLinks = true,
+  }) {
+    return putAllByIndexSync(r'query', objects, saveLinks: saveLinks);
+  }
 }
 
 extension SearchHistoryModelQueryWhereSort
@@ -1938,12 +2009,64 @@ extension SearchHistoryModelQueryWhere
       );
     });
   }
+
+  QueryBuilder<SearchHistoryModel, SearchHistoryModel, QAfterWhereClause>
+  queryEqualTo(String query) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'query', value: [query]),
+      );
+    });
+  }
+
+  QueryBuilder<SearchHistoryModel, SearchHistoryModel, QAfterWhereClause>
+  queryNotEqualTo(String query) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'query',
+                lower: [],
+                upper: [query],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'query',
+                lower: [query],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'query',
+                lower: [query],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'query',
+                lower: [],
+                upper: [query],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
 }
 
 extension SearchHistoryModelQueryFilter
     on QueryBuilder<SearchHistoryModel, SearchHistoryModel, QFilterCondition> {
   QueryBuilder<SearchHistoryModel, SearchHistoryModel, QAfterFilterCondition>
-  createdAtEqualTo(int value) {
+  createdAtEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(property: r'createdAt', value: value),
@@ -1952,7 +2075,7 @@ extension SearchHistoryModelQueryFilter
   }
 
   QueryBuilder<SearchHistoryModel, SearchHistoryModel, QAfterFilterCondition>
-  createdAtGreaterThan(int value, {bool include = false}) {
+  createdAtGreaterThan(DateTime value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(
@@ -1965,7 +2088,7 @@ extension SearchHistoryModelQueryFilter
   }
 
   QueryBuilder<SearchHistoryModel, SearchHistoryModel, QAfterFilterCondition>
-  createdAtLessThan(int value, {bool include = false}) {
+  createdAtLessThan(DateTime value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.lessThan(
@@ -1979,8 +2102,8 @@ extension SearchHistoryModelQueryFilter
 
   QueryBuilder<SearchHistoryModel, SearchHistoryModel, QAfterFilterCondition>
   createdAtBetween(
-    int lower,
-    int upper, {
+    DateTime lower,
+    DateTime upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2301,7 +2424,8 @@ extension SearchHistoryModelQueryProperty
     });
   }
 
-  QueryBuilder<SearchHistoryModel, int, QQueryOperations> createdAtProperty() {
+  QueryBuilder<SearchHistoryModel, DateTime, QQueryOperations>
+  createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'createdAt');
     });

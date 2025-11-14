@@ -38,7 +38,7 @@ class LookAndFeelEntity {
 class SearchHistoryEntity{
   final int id;
   final String query;
-  final int createdAt;
+  final DateTime createdAt;
 
   SearchHistoryEntity({
     required this.id,

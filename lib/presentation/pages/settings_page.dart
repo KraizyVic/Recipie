@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recipie/presentation/pages/look_n_feel_page.dart';
+import 'package:recipie/presentation/pages/settings_pages/general_settings_page.dart';
+import 'package:recipie/presentation/pages/settings_pages/history_page.dart';
+import 'package:recipie/presentation/pages/settings_pages/look_n_feel_page.dart';
+import 'package:recipie/presentation/pages/settings_pages/privacy_policy_page.dart';
+import 'package:recipie/presentation/pages/settings_pages/terms_and_conditions_page.dart';
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
@@ -67,6 +71,12 @@ class _AccountPageState extends State<AccountPage> {
               child: Column(
                 children: [
                   ListTile(
+                    leading: Icon(Icons.widgets ,color: Theme.of(context).colorScheme.primary,),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    title: const Text("General"),
+                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>const GeneralSettingsPage())),
+                  ),
+                  ListTile(
                     leading: Icon(Icons.color_lens,color: Theme.of(context).colorScheme.primary,),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     title: const Text("Look N Feel"),
@@ -76,13 +86,7 @@ class _AccountPageState extends State<AccountPage> {
                     leading: Icon(Icons.history, color: Theme.of(context).colorScheme.primary,),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     title:  Text("History"),
-                    onTap: (){},
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.privacy_tip, color: Theme.of(context).colorScheme.primary,),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    title: const Text("Privacy policy"),
-                    onTap: (){},
+                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>const HistoryPage())),
                   ),
                   ListTile(
                     leading: Icon(Icons.info, color: Theme.of(context).colorScheme.primary,),
@@ -90,6 +94,23 @@ class _AccountPageState extends State<AccountPage> {
                     title: const Text("About"),
                     onTap: (){},
                   ),
+                  ListTile(
+                    leading: Icon(Icons.privacy_tip, color: Theme.of(context).colorScheme.primary,),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    title: const Text("Privacy policy"),
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const PrivacyPolicyPage()));
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.description , color: Theme.of(context).colorScheme.primary,),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    title: const Text("Terms and conditions"),
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const TermsAndConditionsPage()));
+                    },
+                  ),
+
                   ListTile(
                     leading: Icon(Icons.download, color: Theme.of(context).colorScheme.primary,),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

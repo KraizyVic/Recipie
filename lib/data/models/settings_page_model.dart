@@ -126,8 +126,9 @@ class LookAndFeelModel {
 @Collection()
 class SearchHistoryModel {
   Id id = Isar.autoIncrement;
+  @Index(unique: true)
   final String query;
-  final int createdAt;
+  final DateTime createdAt;
   SearchHistoryModel({
     required this.id,
     required this.query,

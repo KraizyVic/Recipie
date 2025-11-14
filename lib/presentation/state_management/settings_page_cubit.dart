@@ -1,5 +1,6 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:isar_community/isar.dart';
 import 'package:recipie/core/constants.dart';
 import 'package:recipie/data/models/settings_page_model.dart';
 import 'package:recipie/domain/entities/settings_page_entities.dart';
@@ -56,5 +57,31 @@ class LookAndFeelCubit extends Cubit<LookAndFeelEntity> {
       await sl<UpdateLookAndFeel>().updateLookAndFeel(looks.toLookAndFeelEntity());
       emit(await sl<ReadLookAndFeel>().readLookAndFeel(0) ?? defaultLookAndFeel);
     }
+  }
+}
+
+
+class SearchHistoryCubit extends Cubit<List<SearchHistoryEntity>>{
+  SearchHistoryCubit() : super([]) {
+    _loadHistory();
+  }
+  Future<void> _loadHistory() async {
+    final history = await sl<ReadSearchHistory>().readSearchHistory();
+    emit(history);
+  }
+
+  Future<void> addHistory(String query) async {
+    await sl<CreateSearchHistory>().createSearchHistory(SearchHistoryEntity(query: query, id: Isar.autoIncrement, createdAt: DateTime.now()));
+    emit(await sl<ReadSearchHistory>().readSearchHistory());
+  }
+
+  Future<void> deleteHistory(int id) async {
+    await sl<DeleteSearchHistory>().deleteSearchHistory(id);
+    emit(await sl<ReadSearchHistory>().readSearchHistory());
+  }
+
+  Future<void> clearSearchHistory() async {
+    await sl<ClearSearchHistory>().clearSearchHistory();
+    emit(await sl<ReadSearchHistory>().readSearchHistory());
   }
 }
