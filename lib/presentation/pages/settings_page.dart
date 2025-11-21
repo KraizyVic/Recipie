@@ -77,52 +77,6 @@ class _AccountPageState extends State<AccountPage> {
     }
   }
 
-  /// ⬇️ Handles the update download + install process
-  Future<void> _startUpdate(String url) async {
-    setState(() {
-      _isDownloading = true;
-      _cancelRequested = false;
-      _progress = 0.0;
-    });
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => DownloadingDialog(
-        onCancel: () => setState(() => _cancelRequested = true),
-        progressProvider: () => _progress,
-      ),
-    );
-
-    final downloader = DownloadService();
-    try {
-      final path = await downloader.downloadApk(url, (p) {
-        if (_cancelRequested) return;
-        setState(() => _progress = p);
-      }, () => _cancelRequested);
-
-      if (_cancelRequested) {
-        setState(() => _isDownloading = false);
-        Navigator.of(context, rootNavigator: true).pop();
-        return;
-      }
-
-      await ApkInstaller.installApk(path);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Update failed: $e')),
-      );
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isDownloading = false;
-          _progress = 0.0;
-        });
-        Navigator.of(context, rootNavigator: true).pop();
-      }
-    }
-  }
-
   @override
   void dispose() {
     _pageController.dispose();
