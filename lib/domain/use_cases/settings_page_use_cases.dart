@@ -42,6 +42,45 @@ class DeleteProfile{
 
 /*
 #############################################################
+******************* General Settings Cases ******************
+#############################################################
+*/
+
+class CreateGeneralSettings{
+  final SettingsPageRepository settingsPageRepository;
+  CreateGeneralSettings({required this.settingsPageRepository});
+
+  Future<void> createGeneralSettings(GeneralSettingsEntity generalSettingsEntity)async{
+    await settingsPageRepository.setGeneralSettings(generalSettingsEntity);
+  }
+}
+class ReadGeneralSettings{
+  final SettingsPageRepository settingsPageRepository;
+  ReadGeneralSettings({required this.settingsPageRepository});
+
+  Future<GeneralSettingsEntity?> readGeneralSettings(int id)async{
+    return await settingsPageRepository.readGeneralSettings(id);
+  }
+}
+class UpdateGeneralSettings{
+  final SettingsPageRepository settingsPageRepository;
+  UpdateGeneralSettings({required this.settingsPageRepository});
+
+  Future<void> updateGeneralSettings(GeneralSettingsEntity generalSettingsEntity)async{
+    await settingsPageRepository.updateGeneralSettings(generalSettingsEntity);
+  }
+}
+class ResetGeneralSettings{
+  final SettingsPageRepository settingsPageRepository;
+  ResetGeneralSettings({required this.settingsPageRepository});
+
+  Future<void> resetGeneralSettings()async{
+    await settingsPageRepository.resetGeneralSettings();
+  }
+}
+
+/*
+#############################################################
 ****************** Look And Feel Use Cases ******************
 #############################################################
 */

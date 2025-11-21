@@ -28,6 +28,28 @@ class SettingsPageRepositoryImpl extends SettingsPageRepository {
     await settingsPageDataSource.deleteProfile(id);
   }
 
+  // General Settings Repo impls
+  @override
+  Future<void> setGeneralSettings(GeneralSettingsEntity generalSettingsEntity) {
+    // TODO: implement setGeneralSettings
+    throw UnimplementedError();
+  }
+  @override
+  Future<GeneralSettingsEntity> readGeneralSettings(int id) {
+    // TODO: implement readGeneralSettings
+    throw UnimplementedError();
+  }
+  @override
+  Future<void> updateGeneralSettings(GeneralSettingsEntity generalSettingsEntity) {
+    // TODO: implement updateGeneralSettings
+    throw UnimplementedError();
+  }
+  @override
+  Future<void> resetGeneralSettings() {
+    // TODO: implement resetGeneralSettings
+    throw UnimplementedError();
+  }
+
   // Look and Feel Repo impls
 
   @override
@@ -84,4 +106,6 @@ class SettingsPageRepositoryImpl extends SettingsPageRepository {
   Future<void> clearCookHistory() async{
     await settingsPageDataSource.clearRecipeHistory();
   }
+
+
 }

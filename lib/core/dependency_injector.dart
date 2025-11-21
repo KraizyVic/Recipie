@@ -79,6 +79,11 @@ Future<void> setupLocator() async{
   sl.registerLazySingleton<ReadProfile>(() => ReadProfile(settingsPageRepository: sl<SettingsPageRepository>()),);
   sl.registerLazySingleton<UpdateProfile>(() => UpdateProfile(settingsPageRepository: sl<SettingsPageRepository>()),);
   sl.registerLazySingleton<DeleteProfile>(() => DeleteProfile(settingsPageRepository: sl<SettingsPageRepository>()),);
+  // --General Settings
+  sl.registerLazySingleton<CreateGeneralSettings>(() => CreateGeneralSettings(settingsPageRepository: sl<SettingsPageRepository>()),);
+  sl.registerLazySingleton<ReadGeneralSettings>(() => ReadGeneralSettings(settingsPageRepository: sl<SettingsPageRepository>()),);
+  sl.registerLazySingleton<UpdateGeneralSettings>(() => UpdateGeneralSettings(settingsPageRepository: sl<SettingsPageRepository>()),);
+  sl.registerLazySingleton<ResetGeneralSettings>(() => ResetGeneralSettings(settingsPageRepository: sl<SettingsPageRepository>()),);
   // --Look and Feel
   sl.registerLazySingleton<CreateLookAndFeel>(() => CreateLookAndFeel(settingsPageRepository: sl<SettingsPageRepository>()),);
   sl.registerLazySingleton<ReadLookAndFeel>(() => ReadLookAndFeel(settingsPageRepository: sl<SettingsPageRepository>()),);

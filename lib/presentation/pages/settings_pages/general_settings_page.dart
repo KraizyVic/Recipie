@@ -13,6 +13,9 @@ class GeneralSettingsPage extends StatelessWidget {
           icon: Icon(Icons.chevron_left,size: 30,color: Theme.of(context).colorScheme.primary,),
         ),
       ),
+      body: Center(
+        child: Text('To be implemented soon'),
+      ),
     );
   }
 }

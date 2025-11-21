@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:recipie/presentation/pages/settings_pages/general_settings_page.dart';
 import 'package:recipie/presentation/pages/settings_pages/history_page.dart';
 import 'package:recipie/presentation/pages/settings_pages/look_n_feel_page.dart';
 import 'package:recipie/presentation/pages/settings_pages/privacy_policy_page.dart';
 import 'package:recipie/presentation/pages/settings_pages/terms_and_conditions_page.dart';
+
+import '../../core/update/download_service.dart';
+import '../../core/update/method_chanel.dart';
+import '../../core/update/update_service.dart';
+import '../../core/update/version_helper.dart';
+import '../widgets/Update_widgets.dart';
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
@@ -12,6 +19,117 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+
+  double _progress = 0.0;
+  bool _isDownloading = false;
+  bool _cancelRequested = false;
+  final PageController _pageController = PageController();
+  int page = 0;
+  late Future<PackageInfo> _packageInfo ;
+
+  @override
+  void initState() {
+    super.initState();
+    _packageInfo = getPackageInfo();
+  }
+
+  Future<PackageInfo> getPackageInfo() async{
+    return await PackageInfo.fromPlatform();
+  }
+
+  /// 🧠 Async update check running after first frame
+  Future<void> _checkForUpdate() async {
+    try {
+      final updateService = UpdateService(
+        repoOwner: 'KraizyVic',
+        repoName: 'Uanimurs',
+      );
+      showDialog(context: context, builder: (_){
+        return const Center(child: CircularProgressIndicator(),);
+      });
+      final update = await updateService.checkForUpdate().timeout(const Duration(seconds: 20), onTimeout: () => null);
+      if (mounted) Navigator.of(context).pop();
+      if (update != null && await VersionHelper.isUpdateAvailable(update['version'] ?? '0.0.0')) {
+        // Show update modal
+        if (mounted) {
+          showModalBottomSheet(
+            context: context,
+            builder: (_) => UpdateModal(
+              version: update['version'] ?? '',
+              changelog: update['changelog'] ?? '',
+              onUpdate: () {
+                Navigator.of(context).pop(); // close bottom sheet
+                if (update['apkUrl'] != null) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdatePage(url: update['apkUrl'])));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('No APK attached to release.')),
+                  );
+                }
+              },
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint('⚠️ Update check failed: $e');
+    }
+  }
+
+  /// ⬇️ Handles the update download + install process
+  Future<void> _startUpdate(String url) async {
+    setState(() {
+      _isDownloading = true;
+      _cancelRequested = false;
+      _progress = 0.0;
+    });
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => DownloadingDialog(
+        onCancel: () => setState(() => _cancelRequested = true),
+        progressProvider: () => _progress,
+      ),
+    );
+
+    final downloader = DownloadService();
+    try {
+      final path = await downloader.downloadApk(url, (p) {
+        if (_cancelRequested) return;
+        setState(() => _progress = p);
+      }, () => _cancelRequested);
+
+      if (_cancelRequested) {
+        setState(() => _isDownloading = false);
+        Navigator.of(context, rootNavigator: true).pop();
+        return;
+      }
+
+      await ApkInstaller.installApk(path);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Update failed: $e')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isDownloading = false;
+          _progress = 0.0;
+        });
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,7 +233,7 @@ class _AccountPageState extends State<AccountPage> {
                     leading: Icon(Icons.download, color: Theme.of(context).colorScheme.primary,),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     title: const Text("Check for update"),
-                    onTap: (){},
+                    onTap: _checkForUpdate,
                   ),
                 ],
               ),

@@ -8,6 +8,26 @@ import 'package:recipie/domain/use_cases/settings_page_use_cases.dart';
 
 import '../../core/dependency_injector.dart';
 
+class GeneralSettingsCubit extends Cubit<GeneralSettingsEntity> {
+  GeneralSettingsCubit() : super(defaultGeneralSettings) {
+    _loadGeneralSettings();
+  }
+
+  Future<void> _loadGeneralSettings() async {
+    final generalSettings = await sl<ReadGeneralSettings>().readGeneralSettings(0);
+    if (generalSettings != null) {
+      emit(generalSettings);
+    }
+    emit(defaultGeneralSettings);
+  }
+  Future<void> updateGeneralSettings(GeneralSettingsEntity generalSettingsEntity) async {
+    final generalSettings = await sl<ReadGeneralSettings>().readGeneralSettings(0);
+    if (generalSettings != null) {
+      emit(generalSettings);
+    }
+  }
+}
+
 class LookAndFeelCubit extends Cubit<LookAndFeelEntity> {
   LookAndFeelCubit() : super(defaultLookAndFeel) {
     _loadLookAndFeel();

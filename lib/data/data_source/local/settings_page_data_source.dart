@@ -1,6 +1,7 @@
 import 'package:isar_community/isar.dart';
 import 'package:recipie/core/constants.dart';
 import 'package:recipie/data/models/settings_page_model.dart';
+import 'package:recipie/domain/entities/settings_page_entities.dart';
 
 class SettingsPageDataSource {
   final Isar isar;
@@ -26,6 +27,25 @@ class SettingsPageDataSource {
   Future<void> deleteProfile(int id) async {
     await isar.writeTxn(() async {
       await isar.profileModels.delete(id);
+    });
+  }
+  // GeneralSettings Settings
+  Future<void> setGeneralSettings(GeneralSettingsModel settings) async {
+    await isar.writeTxn(() async {
+      await isar.generalSettingsModels.put(settings);
+    });
+  }
+  Future<GeneralSettingsModel?> readGeneralSettings(int id) async {
+    return await isar.generalSettingsModels.get(id);
+  }
+  Future<void> updateGeneralSettings(GeneralSettingsModel settings) async {
+    await isar.writeTxn(() async {
+      await isar.generalSettingsModels.put(settings);
+    });
+  }
+  Future<void> resetGeneralSettings(GeneralSettingsEntity defaultGeneralSettings) async {
+    await isar.writeTxn(() async {
+      await isar.generalSettingsModels.put(GeneralSettingsModel.toGeneralSettingsModel(defaultGeneralSettings));
     });
   }
 

@@ -1,4 +1,46 @@
 
+class GeneralSettingsEntity{
+  final int id;
+
+  // App behavior
+  final bool pauseAutoUpdate;
+  final bool downloadOverWifiOnly;
+  final bool enableNotifications;
+
+  // History
+  final bool pauseSearchHistory;
+  final bool pauseCookHistory;
+
+  // Privacy / Cache
+  final bool sendAnonymousStats;
+  final bool clearCacheOnExit;
+
+  // Convenience
+  final String measurementSystem; // or "imperial"
+  final int defaultServings;
+  final bool showTooltips;
+
+  // Future / backup
+  final bool enableCloudBackup;
+  final bool syncAcrossDevices;
+
+  GeneralSettingsEntity({
+    required this.id,
+    required this.pauseAutoUpdate,
+    required this.downloadOverWifiOnly,
+    required this.enableNotifications,
+    required this.pauseSearchHistory,
+    required this.pauseCookHistory,
+    required this.sendAnonymousStats,
+    required this.clearCacheOnExit,
+    required this.measurementSystem,
+    required this.defaultServings,
+    required this.showTooltips,
+    required this.enableCloudBackup,
+    required this.syncAcrossDevices
+  });
+}
+
 class ProfileEntity{
   final int id;
   final String name;

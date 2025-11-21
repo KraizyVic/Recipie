@@ -7,6 +7,12 @@ abstract class SettingsPageRepository {
   Future<void> updateProfile(ProfileEntity profileEntity);
   Future<void> deleteProfile(int id);
 
+  // General Settings Functions
+  Future<void> setGeneralSettings(GeneralSettingsEntity generalSettingsEntity);
+  Future<void> updateGeneralSettings(GeneralSettingsEntity generalSettingsEntity);
+  Future<GeneralSettingsEntity> readGeneralSettings(int id);
+  Future<void> resetGeneralSettings();
+
   // Theme Functions
   Future<void> setTheme(LookAndFeelEntity lookAndFeelEntity);
   Future<LookAndFeelEntity> readLookAndFeelSettings(int id);

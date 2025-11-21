@@ -9,6 +9,1307 @@ part of 'settings_page_model.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
+extension GetGeneralSettingsModelCollection on Isar {
+  IsarCollection<GeneralSettingsModel> get generalSettingsModels =>
+      this.collection();
+}
+
+const GeneralSettingsModelSchema = CollectionSchema(
+  name: r'GeneralSettingsModel',
+  id: 4400091017865939029,
+  properties: {
+    r'clearCacheOnExit': PropertySchema(
+      id: 0,
+      name: r'clearCacheOnExit',
+      type: IsarType.bool,
+    ),
+    r'defaultServings': PropertySchema(
+      id: 1,
+      name: r'defaultServings',
+      type: IsarType.long,
+    ),
+    r'downloadOverWifiOnly': PropertySchema(
+      id: 2,
+      name: r'downloadOverWifiOnly',
+      type: IsarType.bool,
+    ),
+    r'enableCloudBackup': PropertySchema(
+      id: 3,
+      name: r'enableCloudBackup',
+      type: IsarType.bool,
+    ),
+    r'enableNotifications': PropertySchema(
+      id: 4,
+      name: r'enableNotifications',
+      type: IsarType.bool,
+    ),
+    r'measurementSystem': PropertySchema(
+      id: 5,
+      name: r'measurementSystem',
+      type: IsarType.string,
+    ),
+    r'pauseAutoUpdate': PropertySchema(
+      id: 6,
+      name: r'pauseAutoUpdate',
+      type: IsarType.bool,
+    ),
+    r'pauseCookHistory': PropertySchema(
+      id: 7,
+      name: r'pauseCookHistory',
+      type: IsarType.bool,
+    ),
+    r'pauseSearchHistory': PropertySchema(
+      id: 8,
+      name: r'pauseSearchHistory',
+      type: IsarType.bool,
+    ),
+    r'sendAnonymousStats': PropertySchema(
+      id: 9,
+      name: r'sendAnonymousStats',
+      type: IsarType.bool,
+    ),
+    r'showTooltips': PropertySchema(
+      id: 10,
+      name: r'showTooltips',
+      type: IsarType.bool,
+    ),
+    r'syncAcrossDevices': PropertySchema(
+      id: 11,
+      name: r'syncAcrossDevices',
+      type: IsarType.bool,
+    ),
+  },
+
+  estimateSize: _generalSettingsModelEstimateSize,
+  serialize: _generalSettingsModelSerialize,
+  deserialize: _generalSettingsModelDeserialize,
+  deserializeProp: _generalSettingsModelDeserializeProp,
+  idName: r'id',
+  indexes: {},
+  links: {},
+  embeddedSchemas: {},
+
+  getId: _generalSettingsModelGetId,
+  getLinks: _generalSettingsModelGetLinks,
+  attach: _generalSettingsModelAttach,
+  version: '3.3.0-dev.3',
+);
+
+int _generalSettingsModelEstimateSize(
+  GeneralSettingsModel object,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  var bytesCount = offsets.last;
+  bytesCount += 3 + object.measurementSystem.length * 3;
+  return bytesCount;
+}
+
+void _generalSettingsModelSerialize(
+  GeneralSettingsModel object,
+  IsarWriter writer,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  writer.writeBool(offsets[0], object.clearCacheOnExit);
+  writer.writeLong(offsets[1], object.defaultServings);
+  writer.writeBool(offsets[2], object.downloadOverWifiOnly);
+  writer.writeBool(offsets[3], object.enableCloudBackup);
+  writer.writeBool(offsets[4], object.enableNotifications);
+  writer.writeString(offsets[5], object.measurementSystem);
+  writer.writeBool(offsets[6], object.pauseAutoUpdate);
+  writer.writeBool(offsets[7], object.pauseCookHistory);
+  writer.writeBool(offsets[8], object.pauseSearchHistory);
+  writer.writeBool(offsets[9], object.sendAnonymousStats);
+  writer.writeBool(offsets[10], object.showTooltips);
+  writer.writeBool(offsets[11], object.syncAcrossDevices);
+}
+
+GeneralSettingsModel _generalSettingsModelDeserialize(
+  Id id,
+  IsarReader reader,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  final object = GeneralSettingsModel(
+    clearCacheOnExit: reader.readBool(offsets[0]),
+    defaultServings: reader.readLong(offsets[1]),
+    downloadOverWifiOnly: reader.readBool(offsets[2]),
+    enableCloudBackup: reader.readBool(offsets[3]),
+    enableNotifications: reader.readBool(offsets[4]),
+    id: id,
+    measurementSystem: reader.readString(offsets[5]),
+    pauseAutoUpdate: reader.readBool(offsets[6]),
+    pauseCookHistory: reader.readBool(offsets[7]),
+    pauseSearchHistory: reader.readBool(offsets[8]),
+    sendAnonymousStats: reader.readBool(offsets[9]),
+    showTooltips: reader.readBool(offsets[10]),
+    syncAcrossDevices: reader.readBool(offsets[11]),
+  );
+  return object;
+}
+
+P _generalSettingsModelDeserializeProp<P>(
+  IsarReader reader,
+  int propertyId,
+  int offset,
+  Map<Type, List<int>> allOffsets,
+) {
+  switch (propertyId) {
+    case 0:
+      return (reader.readBool(offset)) as P;
+    case 1:
+      return (reader.readLong(offset)) as P;
+    case 2:
+      return (reader.readBool(offset)) as P;
+    case 3:
+      return (reader.readBool(offset)) as P;
+    case 4:
+      return (reader.readBool(offset)) as P;
+    case 5:
+      return (reader.readString(offset)) as P;
+    case 6:
+      return (reader.readBool(offset)) as P;
+    case 7:
+      return (reader.readBool(offset)) as P;
+    case 8:
+      return (reader.readBool(offset)) as P;
+    case 9:
+      return (reader.readBool(offset)) as P;
+    case 10:
+      return (reader.readBool(offset)) as P;
+    case 11:
+      return (reader.readBool(offset)) as P;
+    default:
+      throw IsarError('Unknown property with id $propertyId');
+  }
+}
+
+Id _generalSettingsModelGetId(GeneralSettingsModel object) {
+  return object.id;
+}
+
+List<IsarLinkBase<dynamic>> _generalSettingsModelGetLinks(
+  GeneralSettingsModel object,
+) {
+  return [];
+}
+
+void _generalSettingsModelAttach(
+  IsarCollection<dynamic> col,
+  Id id,
+  GeneralSettingsModel object,
+) {
+  object.id = id;
+}
+
+extension GeneralSettingsModelQueryWhereSort
+    on QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QWhere> {
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterWhere>
+  anyId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(const IdWhereClause.any());
+    });
+  }
+}
+
+extension GeneralSettingsModelQueryWhere
+    on QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QWhereClause> {
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterWhereClause>
+  idEqualTo(Id id) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IdWhereClause.between(lower: id, upper: id));
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterWhereClause>
+  idNotEqualTo(Id id) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IdWhereClause.lessThan(upper: id, includeUpper: false),
+            )
+            .addWhereClause(
+              IdWhereClause.greaterThan(lower: id, includeLower: false),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IdWhereClause.greaterThan(lower: id, includeLower: false),
+            )
+            .addWhereClause(
+              IdWhereClause.lessThan(upper: id, includeUpper: false),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterWhereClause>
+  idGreaterThan(Id id, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IdWhereClause.greaterThan(lower: id, includeLower: include),
+      );
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterWhereClause>
+  idLessThan(Id id, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IdWhereClause.lessThan(upper: id, includeUpper: include),
+      );
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterWhereClause>
+  idBetween(
+    Id lowerId,
+    Id upperId, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IdWhereClause.between(
+          lower: lowerId,
+          includeLower: includeLower,
+          upper: upperId,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+}
+
+extension GeneralSettingsModelQueryFilter
+    on
+        QueryBuilder<
+          GeneralSettingsModel,
+          GeneralSettingsModel,
+          QFilterCondition
+        > {
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  clearCacheOnExitEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'clearCacheOnExit', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  defaultServingsEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'defaultServings', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  defaultServingsGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'defaultServings',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  defaultServingsLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'defaultServings',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  defaultServingsBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'defaultServings',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  downloadOverWifiOnlyEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'downloadOverWifiOnly',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  enableCloudBackupEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'enableCloudBackup', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  enableNotificationsEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'enableNotifications', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  idEqualTo(Id value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'id', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  idGreaterThan(Id value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  idLessThan(Id value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  idBetween(
+    Id lower,
+    Id upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'id',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'measurementSystem',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'measurementSystem',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'measurementSystem',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'measurementSystem',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'measurementSystem',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'measurementSystem',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'measurementSystem',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'measurementSystem',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'measurementSystem', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  measurementSystemIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'measurementSystem', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  pauseAutoUpdateEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'pauseAutoUpdate', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  pauseCookHistoryEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'pauseCookHistory', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  pauseSearchHistoryEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'pauseSearchHistory', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  sendAnonymousStatsEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'sendAnonymousStats', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  showTooltipsEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'showTooltips', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    GeneralSettingsModel,
+    GeneralSettingsModel,
+    QAfterFilterCondition
+  >
+  syncAcrossDevicesEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'syncAcrossDevices', value: value),
+      );
+    });
+  }
+}
+
+extension GeneralSettingsModelQueryObject
+    on
+        QueryBuilder<
+          GeneralSettingsModel,
+          GeneralSettingsModel,
+          QFilterCondition
+        > {}
+
+extension GeneralSettingsModelQueryLinks
+    on
+        QueryBuilder<
+          GeneralSettingsModel,
+          GeneralSettingsModel,
+          QFilterCondition
+        > {}
+
+extension GeneralSettingsModelQuerySortBy
+    on QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QSortBy> {
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByClearCacheOnExit() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'clearCacheOnExit', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByClearCacheOnExitDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'clearCacheOnExit', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByDefaultServings() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'defaultServings', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByDefaultServingsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'defaultServings', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByDownloadOverWifiOnly() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'downloadOverWifiOnly', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByDownloadOverWifiOnlyDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'downloadOverWifiOnly', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByEnableCloudBackup() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableCloudBackup', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByEnableCloudBackupDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableCloudBackup', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByEnableNotifications() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableNotifications', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByEnableNotificationsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableNotifications', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByMeasurementSystem() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'measurementSystem', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByMeasurementSystemDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'measurementSystem', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByPauseAutoUpdate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseAutoUpdate', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByPauseAutoUpdateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseAutoUpdate', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByPauseCookHistory() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseCookHistory', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByPauseCookHistoryDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseCookHistory', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByPauseSearchHistory() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseSearchHistory', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByPauseSearchHistoryDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseSearchHistory', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortBySendAnonymousStats() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'sendAnonymousStats', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortBySendAnonymousStatsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'sendAnonymousStats', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByShowTooltips() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'showTooltips', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortByShowTooltipsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'showTooltips', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortBySyncAcrossDevices() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'syncAcrossDevices', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  sortBySyncAcrossDevicesDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'syncAcrossDevices', Sort.desc);
+    });
+  }
+}
+
+extension GeneralSettingsModelQuerySortThenBy
+    on QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QSortThenBy> {
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByClearCacheOnExit() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'clearCacheOnExit', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByClearCacheOnExitDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'clearCacheOnExit', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByDefaultServings() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'defaultServings', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByDefaultServingsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'defaultServings', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByDownloadOverWifiOnly() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'downloadOverWifiOnly', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByDownloadOverWifiOnlyDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'downloadOverWifiOnly', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByEnableCloudBackup() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableCloudBackup', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByEnableCloudBackupDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableCloudBackup', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByEnableNotifications() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableNotifications', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByEnableNotificationsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableNotifications', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenById() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByMeasurementSystem() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'measurementSystem', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByMeasurementSystemDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'measurementSystem', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByPauseAutoUpdate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseAutoUpdate', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByPauseAutoUpdateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseAutoUpdate', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByPauseCookHistory() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseCookHistory', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByPauseCookHistoryDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseCookHistory', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByPauseSearchHistory() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseSearchHistory', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByPauseSearchHistoryDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pauseSearchHistory', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenBySendAnonymousStats() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'sendAnonymousStats', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenBySendAnonymousStatsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'sendAnonymousStats', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByShowTooltips() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'showTooltips', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenByShowTooltipsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'showTooltips', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenBySyncAcrossDevices() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'syncAcrossDevices', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QAfterSortBy>
+  thenBySyncAcrossDevicesDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'syncAcrossDevices', Sort.desc);
+    });
+  }
+}
+
+extension GeneralSettingsModelQueryWhereDistinct
+    on QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct> {
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByClearCacheOnExit() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'clearCacheOnExit');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByDefaultServings() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'defaultServings');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByDownloadOverWifiOnly() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'downloadOverWifiOnly');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByEnableCloudBackup() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'enableCloudBackup');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByEnableNotifications() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'enableNotifications');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByMeasurementSystem({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(
+        r'measurementSystem',
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByPauseAutoUpdate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'pauseAutoUpdate');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByPauseCookHistory() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'pauseCookHistory');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByPauseSearchHistory() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'pauseSearchHistory');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctBySendAnonymousStats() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'sendAnonymousStats');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctByShowTooltips() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'showTooltips');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, GeneralSettingsModel, QDistinct>
+  distinctBySyncAcrossDevices() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'syncAcrossDevices');
+    });
+  }
+}
+
+extension GeneralSettingsModelQueryProperty
+    on
+        QueryBuilder<
+          GeneralSettingsModel,
+          GeneralSettingsModel,
+          QQueryProperty
+        > {
+  QueryBuilder<GeneralSettingsModel, int, QQueryOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  clearCacheOnExitProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'clearCacheOnExit');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, int, QQueryOperations>
+  defaultServingsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'defaultServings');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  downloadOverWifiOnlyProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'downloadOverWifiOnly');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  enableCloudBackupProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'enableCloudBackup');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  enableNotificationsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'enableNotifications');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, String, QQueryOperations>
+  measurementSystemProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'measurementSystem');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  pauseAutoUpdateProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'pauseAutoUpdate');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  pauseCookHistoryProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'pauseCookHistory');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  pauseSearchHistoryProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'pauseSearchHistory');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  sendAnonymousStatsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'sendAnonymousStats');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  showTooltipsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'showTooltips');
+    });
+  }
+
+  QueryBuilder<GeneralSettingsModel, bool, QQueryOperations>
+  syncAcrossDevicesProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'syncAcrossDevices');
+    });
+  }
+}
+
+// coverage:ignore-file
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+
 extension GetProfileModelCollection on Isar {
   IsarCollection<ProfileModel> get profileModels => this.collection();
 }

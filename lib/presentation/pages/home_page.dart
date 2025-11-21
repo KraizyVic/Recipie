@@ -21,7 +21,8 @@ import '../widgets/search_widgets.dart';
 import 'a_to_z_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final HomePageEntity homePageEntity;
+  const HomePage({super.key, required this.homePageEntity});
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -39,17 +40,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _homePageItemsFuture = sl<FetchHomeItemsUseCase>().call();
+    _homePageItemsFuture = Future.value(widget.homePageEntity);
   }
 
   Future<void> _refreshData() async {
     // For manual refresh
     setState(() {
-      _homePageItemsFuture = FetchHomeItemsUseCase(
-        homePageRepository: HomePageRepositoryImpl(
-          homePageOnlineDataSource: HomePageOnlineDataSource(),
-        ),
-      ).call();
+      _homePageItemsFuture = sl<FetchHomeItemsUseCase>().call();
     });
   }
 
