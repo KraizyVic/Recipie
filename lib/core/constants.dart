@@ -8,6 +8,10 @@ Enjoy.
 */
 import 'package:recipie/domain/entities/settings_page_entities.dart';
 
+String repoOwner = "KraizyVic";
+String repoName = "Recipie";
+
+
 LookAndFeelEntity defaultLookAndFeel = LookAndFeelEntity(id: 0, themeMode: 0, isAmoledBackground: false, keepScreenOnOnRecipePage: false, seedColor: 0xFF0077D7, primaryColor: 0xFF0077D7, language: "English");
 GeneralSettingsEntity defaultGeneralSettings = GeneralSettingsEntity(id: 0, pauseAutoUpdate: false, downloadOverWifiOnly: false, enableNotifications: false, pauseSearchHistory: false, pauseCookHistory: false, sendAnonymousStats: false, clearCacheOnExit: false, measurementSystem: "metric", defaultServings: 0, showTooltips: false, enableCloudBackup: false, syncAcrossDevices: false);
 

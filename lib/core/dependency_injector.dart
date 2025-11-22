@@ -34,6 +34,7 @@ Future<void> setupLocator() async{
   final Isar isar = await Isar.open(
     [
       GroceryItemModelSchema,
+      GroceryRecipeGroupModelSchema,
       RecipeCardModelSchema,
       ProfileModelSchema,
       LookAndFeelModelSchema,
@@ -54,7 +55,7 @@ Future<void> setupLocator() async{
   // #######  Repositories  #######
   sl.registerLazySingleton<HomePageRepository>(() => HomePageRepositoryImpl(homePageOnlineDataSource: sl<HomePageOnlineDataSource>()),);
   sl.registerLazySingleton<AToZRepository>(() => AToZRepositoryImpl(aToZOnlineDataSource: sl<AToZOnlineDataSource>()),);
-  sl.registerLazySingleton<GroceryItemRepository>(() => GroceryRepositoryImpl(groceriesDataSource: sl<GroceriesDataSource>()),);
+  sl.registerLazySingleton<GroceryRepository>(() => GroceryRepositoryImpl(groceriesDataSource: sl<GroceriesDataSource>()),);
   sl.registerLazySingleton<CookBookRepository>(() => CookBookRepositoryImpl(cookBookDataSource: sl<CookBookDataSource>()),);
   sl.registerLazySingleton<SettingsPageRepository>(() => SettingsPageRepositoryImpl(settingsPageDataSource: sl<SettingsPageDataSource>()),);
 
@@ -63,10 +64,16 @@ Future<void> setupLocator() async{
   sl.registerLazySingleton<FetchAToZUseCase>(() => FetchAToZUseCase(aToZRepository: sl<AToZRepository>()),);
 
   // Groceries Use Cases
-  sl.registerLazySingleton<AddGrocery>(() => AddGrocery(groceryItemRepository: sl<GroceryItemRepository>()),);
-  sl.registerLazySingleton<GetGroceries>(() => GetGroceries(groceryItemRepository: sl<GroceryItemRepository>()),);
-  sl.registerLazySingleton<ToggleGrocery>(() => ToggleGrocery(groceryItemRepository: sl<GroceryItemRepository>()),);
-  sl.registerLazySingleton<DeleteGrocery>(() => DeleteGrocery(groceryItemRepository: sl<GroceryItemRepository>()),);
+  sl.registerLazySingleton<AddGrocery>(() => AddGrocery(groceryRepository: sl<GroceryRepository>()),);
+  sl.registerLazySingleton<GetGroceries>(() => GetGroceries(groceryRepository: sl<GroceryRepository>()),);
+  sl.registerLazySingleton<GetGroceriesGroups>(() => GetGroceriesGroups(groceryRepository: sl<GroceryRepository>()),);
+  sl.registerLazySingleton<ToggleGrocery>(() => ToggleGrocery(groceryRepository: sl<GroceryRepository>()),);
+  sl.registerLazySingleton<DeleteGrocery>(() => DeleteGrocery(groceryRepository: sl<GroceryRepository>()),);
+  sl.registerLazySingleton<CreateGroceryGroup>(() => CreateGroceryGroup(groceryRepository: sl<GroceryRepository>()),);
+  sl.registerLazySingleton<UpdateGroceryGroup>(() => UpdateGroceryGroup(groceryRepository: sl<GroceryRepository>()),);
+  sl.registerLazySingleton<DeleteGroceryGroup>(() => DeleteGroceryGroup(groceryRepository: sl<GroceryRepository>()),);
+  sl.registerLazySingleton<AssignItemToGroup>(() => AssignItemToGroup(groceryRepository: sl<GroceryRepository>()),);
+
 
   // Cook Book Use Cases
   sl.registerLazySingleton<AddRecipeToCookBook>(() => AddRecipeToCookBook(cookBookRepository: sl<CookBookRepository>()),);

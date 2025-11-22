@@ -7,38 +7,75 @@ import 'package:recipie/data/models/grocery_model.dart';
 
 
 // ***** G R O C E R Y - I T E M - R E P O - I M P L *****
-//TODO: Add a mass addition method for groceries
-
-class GroceryRepositoryImpl extends GroceryItemRepository{
+class GroceryRepositoryImpl implements GroceryRepository {
   final GroceriesDataSource groceriesDataSource;
+
   GroceryRepositoryImpl({required this.groceriesDataSource});
 
   @override
-  Future<void> addGroceryItem(GroceryItemEntity? grocery,List<GroceryItemEntity>? massAddOfGroceries) async {
-    GroceryItemModel? groceryModel = grocery != null ? GroceryItemModel.toGroceryModel(grocery) : null ;
-    List<GroceryItemModel>? groceriesModel = [];
-    if(massAddOfGroceries != null){
-      groceriesModel = massAddOfGroceries.map((e) => GroceryItemModel.toGroceryModel(e)).toList();
-      await groceriesDataSource.addGrocery(null,groceriesModel);
-    }
-    await groceriesDataSource.addGrocery(groceryModel,null);
-  }
-
-  @override
   Stream<List<GroceryItemEntity>> getGroceryItems() {
-    return groceriesDataSource.getGroceries().map((event) => event.map((e) => e.toEntity()).toList());
+    // TODO: implement getGroceryItems
+    return groceriesDataSource.getGroceries().map((models) => models.map((m) => m.toGroceryItemEntity()).toList());
   }
 
   @override
-  Future<void> toggleGroceryItem(int id) async{
-    await groceriesDataSource.updateGrocery(id);
+  Stream<List<GroceryRecipeGroupEntity>> getGroceryGroupItems() {
+    return groceriesDataSource.getGroceryGroups().map(
+          (models) => models.map((m) => m.toGroceryRecipeGroupEntity()).toList(),
+    );
   }
 
   @override
-  Future<void> removeGroceryItem(int? id,List<int>?massDeleteIds) async{
-    if(massDeleteIds != null){
-      await groceriesDataSource.deleteGrocery(null,massDeleteIds);
-    }
-    await groceriesDataSource.deleteGrocery(id,null);
+  Future<void> addGroceryItem(GroceryItemEntity? grocery, List<GroceryItemEntity>? massAdd,) async {
+    final groupId = grocery?.recipeGroupId ?? massAdd?.first.recipeGroupId ?? 0;
+    await groceriesDataSource.addGrocery(
+      groupId: groupId,
+      grocery: grocery != null ? GroceryItemModel.toGroceryItemModel(grocery) : null,
+      massGroceries: massAdd?.map((e) => GroceryItemModel.toGroceryItemModel(e)).toList(),
+    );
   }
+
+  @override
+  Future<void> toggleGroceryItem(int id) {
+    return groceriesDataSource.toggleGrocery(id);
+  }
+
+  @override
+  Future<void> removeGroceryItem(int? id, List<int>? massDeleteIds) {
+    return groceriesDataSource.deleteGroceries(id: id, ids: massDeleteIds);
+  }
+
+  @override
+  Future<void> removeGroceryGroup(int groupId) {
+    return groceriesDataSource.deleteGroup(groupId);
+  }
+
+  @override
+  Future<void> createGroceryGroup(GroceryRecipeGroupEntity group) {
+    final groupModel = GroceryRecipeGroupModel.toGroceryRecipeGroupModel(group);
+    final itemsModels = group.items.map(GroceryItemModel.toGroceryItemModel).toList();
+    return groceriesDataSource.createGroup(groupModel, items: itemsModels);
+  }
+
+
+  @override
+  Future<void> updateGroceryGroup(GroceryRecipeGroupEntity group) {
+    return groceriesDataSource.updateGroup(
+      GroceryRecipeGroupModel.toGroceryRecipeGroupModel(group),
+    );
+  }
+
+  @override
+  Future<void> assignItemToGroup({
+    required int itemId,
+    required int groupId,
+  }) {
+    return groceriesDataSource.assignItemToGroup(
+      itemId: itemId,
+      groupId: groupId,
+    );
+  }
+
+
 }
+

@@ -1,4 +1,4 @@
-package com.example.recipie
+package app.kraizyvic.recipie
 
 import android.content.Intent
 import android.net.Uri

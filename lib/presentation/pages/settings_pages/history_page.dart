@@ -123,7 +123,7 @@ class _HistoryPageState extends State<HistoryPage> {
                     );
                   }
                 ),
-                Center(child: Text('Cook History'),),
+                Center(child: Text('Cook History Coming soon'),),
               ],
             ),
           )

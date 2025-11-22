@@ -1,7 +1,10 @@
 import "package:flutter/material.dart";
 import "package:isar_community/isar.dart";
 import "package:recipie/core/dependency_injector.dart";
+import "package:recipie/core/entities/recipe_n_article_card_entity.dart";
+import "package:recipie/data/models/recipe_article_page_model.dart";
 import "package:recipie/domain/entities/grocery_entity.dart";
+import "package:recipie/domain/entities/recipe_article_page_entity.dart";
 import "package:recipie/domain/use_cases/grocery_use_cases.dart";
 
 import "../../domain/entities/recipe_page_entity.dart";
@@ -9,7 +12,9 @@ import "../../domain/entities/recipe_page_entity.dart";
 
 class IngredientGroupTile extends StatefulWidget {
   final List<RecipeIngredientGroupEntity> ingredientGroupEntities;
-  const IngredientGroupTile({super.key, required this.ingredientGroupEntities});
+  final RecipeCardEntity? recipeCardEntity;
+  final ArticleRecipeEntity? articleCardEntity;
+  const IngredientGroupTile({super.key, required this.ingredientGroupEntities, required this.recipeCardEntity, required this.articleCardEntity});
 
   @override
   State<IngredientGroupTile> createState() => _IngredientGroupTileState();
@@ -60,23 +65,15 @@ class _IngredientGroupTileState extends State<IngredientGroupTile> {
                 Expanded(
                   child: Text(
                     "Add remaining ingredients to grocery list",
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .tertiary
-                            .withAlpha(100)),
+                    style: TextStyle(color: Theme.of(context).colorScheme.tertiary.withAlpha(100)),
                   ),
                 ),
                 MaterialButton(
                   onPressed: () {
                     // Filter out items that user already has
-                    final missingItems = allIngredients
-                        .where((item) => !haveItems
-                        .any((owned) => owned.name == item.name))
-                        .toList();
-
+                    final missingItems = allIngredients.where((item) => !haveItems.any((owned) => owned.name == item.name)).toList();
                     if (missingItems.isNotEmpty) {
-                      sl<AddGrocery>().addGrocery(null, missingItems);
+                      sl<CreateGroceryGroup>().createGroceryGroup(GroceryRecipeGroupEntity(id: Isar.autoIncrement, name: widget.recipeCardEntity?.title ?? widget.articleCardEntity?.title ?? "Unknown", isCreatedByUser: false, link: widget.recipeCardEntity?.url ?? widget.articleCardEntity?.url ?? "Unknown", items: missingItems));
                     }
                   },
                   elevation: 0,

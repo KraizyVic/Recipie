@@ -65,8 +65,20 @@ class _LookNFeelPageState extends State<LookNFeelPage> {
                   ),
                   SizedBox(height: 10,),
                   Text("Misc",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,)),
-                  SwitchListTile(value: state.isAmoledBackground, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),), title: Text("Amoled Background"),onChanged: (value)=> context.read<LookAndFeelCubit>().setAmoledBackground(value),),
-                  SwitchListTile(value: state.keepScreenOnOnRecipePage, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),), title: Text("Keep screen on in details page"),onChanged: (value)=> context.read<LookAndFeelCubit>().setKeepScreenOn(value),),
+                  SwitchListTile(
+                    value: state.isAmoledBackground,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+                    title: Text("Amoled Background"),
+                    onChanged: (value)=> context.read<LookAndFeelCubit>().setAmoledBackground(value),
+                  ),
+                  SwitchListTile(
+                    value: state.keepScreenOnOnRecipePage,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+                    title: Text("Keep screen on in details page"),
+                    onChanged: (value) {
+                      //context.read<LookAndFeelCubit>().setKeepScreenOn(value);
+                    },
+                  ),
                   SizedBox(height: 10,),
                   Text("Colors",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,)),
                   SizedBox(height: 10,),

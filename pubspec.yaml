@@ -58,6 +58,14 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   isar_community_generator: 3.3.0-dev.3
   analyzer: 7.4.5
+  flutter_launcher_icons: "^0.14.4"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "lib/core/assets/pie.png"
+  #adaptive_icon_background: "#FFFFFF"  # or your brand color
+  adaptive_icon_foreground: "lib/core/assets/pie.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

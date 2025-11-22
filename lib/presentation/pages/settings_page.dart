@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:recipie/core/constants.dart';
 import 'package:recipie/presentation/pages/settings_pages/general_settings_page.dart';
 import 'package:recipie/presentation/pages/settings_pages/history_page.dart';
 import 'package:recipie/presentation/pages/settings_pages/look_n_feel_page.dart';
 import 'package:recipie/presentation/pages/settings_pages/privacy_policy_page.dart';
 import 'package:recipie/presentation/pages/settings_pages/terms_and_conditions_page.dart';
 
-import '../../core/update/download_service.dart';
-import '../../core/update/method_chanel.dart';
 import '../../core/update/update_service.dart';
 import '../../core/update/version_helper.dart';
 import '../widgets/Update_widgets.dart';
@@ -20,18 +19,8 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
 
-  double _progress = 0.0;
-  bool _isDownloading = false;
-  bool _cancelRequested = false;
   final PageController _pageController = PageController();
   int page = 0;
-  late Future<PackageInfo> _packageInfo ;
-
-  @override
-  void initState() {
-    super.initState();
-    _packageInfo = getPackageInfo();
-  }
 
   Future<PackageInfo> getPackageInfo() async{
     return await PackageInfo.fromPlatform();
@@ -41,8 +30,8 @@ class _AccountPageState extends State<AccountPage> {
   Future<void> _checkForUpdate() async {
     try {
       final updateService = UpdateService(
-        repoOwner: 'KraizyVic',
-        repoName: 'Uanimurs',
+        repoOwner: repoOwner,
+        repoName: repoName,
       );
       showDialog(context: context, builder: (_){
         return const Center(child: CircularProgressIndicator(),);
@@ -82,7 +71,6 @@ class _AccountPageState extends State<AccountPage> {
     _pageController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {

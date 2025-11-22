@@ -182,7 +182,11 @@ class _RecipePageState extends State<RecipePage> {
                           )).toList(),
                         ),
                         SizedBox(height: 10,),
-                        IngredientGroupTile(ingredientGroupEntities: data.recipeIngredients),
+                        IngredientGroupTile(
+                          ingredientGroupEntities: data.recipeIngredients,
+                          recipeCardEntity: widget.recipe,
+                          articleCardEntity: widget.articleRecipeEntity,
+                        ),
                         SizedBox(height: 10,),
                         Padding(
                           padding: const EdgeInsets.all(8.0),

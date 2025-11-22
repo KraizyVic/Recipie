@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:recipie/core/constants.dart';
 import '../../core/dependency_injector.dart';
 import '../../core/update/download_service.dart';
 import '../../core/update/method_chanel.dart';
@@ -25,19 +26,14 @@ class _MainPageState extends State<MainPage> {
   int currentPageIndex = 0;
   late Future<HomePageEntity> _homePageItemsFuture;
 
-  double _progress = 0.0;
-  bool _isDownloading = false;
-  bool _cancelRequested = false;
   final PageController _pageController = PageController();
   int page = 0;
-  late Future<PackageInfo> _packageInfo ;
 
   @override
   void initState() {
     super.initState();
     // check for updates after UI builds (non-blocking)
     WidgetsBinding.instance.addPostFrameCallback((_) => _checkForUpdate());
-    _packageInfo = getPackageInfo();
     _homePageItemsFuture = sl<FetchHomeItemsUseCase>().call();
   }
 
@@ -49,8 +45,8 @@ class _MainPageState extends State<MainPage> {
   Future<void> _checkForUpdate() async {
     try {
       final updateService = UpdateService(
-        repoOwner: 'KraizyVic',
-        repoName: 'Uanimurs',
+        repoOwner: repoOwner,
+        repoName: repoName,
       );
 
       final update = await updateService.checkForUpdate().timeout(const Duration(seconds: 20), onTimeout: () => null);
